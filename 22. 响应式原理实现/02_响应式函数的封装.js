@@ -6,27 +6,22 @@ function watchFn(fn) {
 
 // 对象的响应式
 const obj = {
-  name: "why",
-  age: 18
+  name: 'why',
+  age: 18,
 }
 
-watchFn(function() {
-  const newName = obj.name
-  console.log("你好啊, 李银河")
-  console.log("Hello World")
-  console.log(obj.name) // 100行
+watchFn(() => {
+  console.log('into watch')
+  console.log(obj.name)
 })
 
-watchFn(function() {
-  console.log(obj.name, "demo function -------")
+watchFn(() => {
+  console.log('demo function-------')
 })
 
 function bar() {
-  console.log("普通的其他函数")
-  console.log("这个函数不需要有任何响应式")
+  console.log('bar')
 }
 
-obj.name = "kobe"
-reactiveFns.forEach(fn => {
-  fn()
-})
+obj.name = 'coder'
+reactiveFns.forEach(fn => fn())

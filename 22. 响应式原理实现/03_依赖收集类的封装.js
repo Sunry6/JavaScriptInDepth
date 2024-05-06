@@ -8,9 +8,7 @@ class Depend {
   }
 
   notify() {
-    this.reactiveFns.forEach(fn => {
-      fn()
-    })
+    this.reactiveFns.forEach(fn => fn())
   }
 }
 
@@ -22,20 +20,20 @@ function watchFn(fn) {
 
 // 对象的响应式
 const obj = {
-  name: "why", // depend对象
-  age: 18 // depend对象
+  name: 'why',
+  age: 18,
 }
 
-watchFn(function() {
-  const newName = obj.name
-  console.log("你好啊, 李银河")
-  console.log("Hello World")
-  console.log(obj.name) // 100行
+watchFn(() => {
+  console.log('into watch')
+  console.log(obj.name)
 })
 
-watchFn(function() {
-  console.log(obj.name, "demo function -------")
+watchFn(() => {
+  console.log('demo function')
 })
 
-obj.name = "kobe"
+obj.name = 'coder'
 depend.notify()
+
+export {}

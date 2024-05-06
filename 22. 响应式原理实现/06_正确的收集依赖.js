@@ -99,3 +99,4 @@ objProxy.name = "kobe"
 // objProxy.age = 20
 // objProxy.age = 30
 
+export {}

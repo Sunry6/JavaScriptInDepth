@@ -57,47 +57,43 @@ function getDepend(target, key) {
 
 function reactive(obj) {
   return new Proxy(obj, {
-    get: function(target, key, receiver) {
-      // 根据target.key获取对应的depend
+    get: function (target, key, receiver) {
       const depend = getDepend(target, key)
-      // 给depend对象中添加响应函数
-      // depend.addDepend(activeReactiveFn)
       depend.depend()
-  
       return Reflect.get(target, key, receiver)
     },
-    set: function(target, key, newValue, receiver) {
-      Reflect.set(target, key, newValue, receiver)
-      // depend.notify()
+
+    set: function (target, key, newValue, receiver) {
       const depend = getDepend(target, key)
       depend.notify()
-    }
+      return Reflect.set(target, key, newValue, receiver)
+    },
   })
 }
 
-// 监听对象的属性变量: Proxy(vue3)/Object.defineProperty(vue2)
 const objProxy = reactive({
-  name: "why", // depend对象
-  age: 18 // depend对象
+  name: 'why',
+  age: 18,
 })
 
 const infoProxy = reactive({
-  address: "广州市",
-  height: 1.88
+  address: '广州',
+  height: 1.88,
 })
 
 watchFn(() => {
   console.log(infoProxy.address)
 })
 
-infoProxy.address = "北京市"
+infoProxy.address = '上海'
 
 const foo = reactive({
-  name: "foo"
+  name: 'foo',
 })
 
 watchFn(() => {
   console.log(foo.name)
 })
 
-foo.name = "bar"
+foo.name = 'bar'
+
